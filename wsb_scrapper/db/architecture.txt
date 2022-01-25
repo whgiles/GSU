@@ -1,0 +1,16 @@
+WSB submissions:
+    - submission_id
+    - title
+    - created timestamp
+    - author
+    - tickers mentioned
+    - number of rocket emotes
+    - subreddit
+
+WSB comments:
+    - comment id
+    - body
+    - created timestamp
+    - author
+    - number of rocket emotes
+    - submission id (link_id)
