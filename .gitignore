@@ -1,1 +1,5 @@
 /venv
+/wsb_scrapper/cache
+/wsb_scrapper/old_cache
+/wsb_scrapper/logs.log
+/wsb_scrapper/stdout.txt
