@@ -1,5 +1,5 @@
 from AggregateData import AggregateData
-from WsbScape import WsbScrape
+from WsbScrape import WsbScrape
 
 scrape_data = True
 
