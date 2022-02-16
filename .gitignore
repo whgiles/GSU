@@ -1,8 +1,10 @@
 /venv
 /wsb_scrapper/cache
 /wsb_scrapper/old_cache
-/wsb_scrapper/logs.log
-/wsb_scrapper/stdout.txt
-/wsb_scrapper/logs_no_comments.log
-/wsb_scrapper/stdout_no_comments.txt
+/wsb_scrapper/out/logs.log
+/wsb_scrapper/out/stdout.txt
+/wsb_scrapper/out/logs_no_comments.log
+/wsb_scrapper/out/stdout_no_comments.txt
 /wsb_scrapper/create_table.py
+/wsb_scrapper/simplecache
+/wsb_scrapper/out/

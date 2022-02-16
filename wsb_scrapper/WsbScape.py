@@ -5,12 +5,11 @@ import pandas as pd
 import time
 import logging
 import numpy as np
-import advertools as adv
 
 # set logger
 logger = logging.getLogger('__name__')
 logger.setLevel(logging.INFO)
-file_handler = logging.FileHandler('./logs_no_comments.log')
+file_handler = logging.FileHandler('out/logs_no_comments.log')
 file_handler.setLevel(logging.INFO)
 logger.addHandler(file_handler)
 
@@ -159,8 +158,7 @@ def generate_data_by_dates(start_at, end_at, random=False):
                     f'----------------------------------------------------------------------------------------------->')
 
 
-if __name__ == '__main__':
-    generate_data_by_dates(start_at='3/01/2021', end_at='4/01/2021', random=True)
-
-# def text_analysis(str):
-#     return adv.extract_emoji(str)['emoji_flat']
+# collects wallStreetBet submissions from PushShift API to
+class WsbScrape:
+    def __init__(self, start_date, end_date, random):
+        generate_data_by_dates(start_at=start_date, end_at=end_date, random=random)
