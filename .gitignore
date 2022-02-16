@@ -8,3 +8,4 @@
 /wsb_scrapper/create_table.py
 /wsb_scrapper/simplecache
 /wsb_scrapper/out/
+/wsb_scrapper/__pycache__/
