@@ -3,3 +3,6 @@
 /wsb_scrapper/old_cache
 /wsb_scrapper/logs.log
 /wsb_scrapper/stdout.txt
+/wsb_scrapper/logs_no_comments.log
+/wsb_scrapper/stdout_no_comments.txt
+/wsb_scrapper/create_table.py

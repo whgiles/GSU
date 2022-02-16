@@ -3,8 +3,9 @@ from pmaw import PushshiftAPI
 from datetime import datetime
 import pandas as pd
 import time
-import advertools as adv
 import logging
+import numpy as np
+import advertools as adv
 
 # set logger
 logger = logging.getLogger('__name__')
@@ -63,7 +64,8 @@ def collect_data(after, before, connect, persist=True, comments=True, submission
         if comments:
             comments_from_api = api.search_comments(mem_safe=True, safe_exit=True, before=end_at, after=start_at,
                                                     subreddit='wallstreetbets',
-                                                    fields=["id", "created_utc", "body", "author", "link_id", "subreddit"])
+                                                    fields=["id", "created_utc", "body", "author", "link_id",
+                                                            "subreddit"])
 
             print('PERSISTING COMMENTS')
             if persist:
@@ -114,26 +116,51 @@ def collect_data(after, before, connect, persist=True, comments=True, submission
         exit()
 
 
-# ---------------------------------------------------------------------------------------------------------------------
-# EXTRACTING FORM DATABASE --------------------------------------------------------------------------------------
+# make 9 random hour long time frames for every date between start and end dates
+def random_time_frame(start, end):
+    dates = pd.date_range(start=start, end=end, freq='d')
 
-# df = pd.read_sql_table('wsb_comments', db)
-# print(df)
-if __name__ == '__main__':
-    dates = pd.date_range(start='1/01/2020', end='4/01/2021', freq='d')
+    random_dates = []
+    for i in range(1, len(dates)):
+        hours = pd.date_range(start=dates[i - 1], end=dates[i], freq='1h')
+        rand_ints = np.random.randint(0, len(hours) - 2, size=9)
+        for rint in rand_ints:
+            time_frame = [hours[rint], hours[rint + 1]]
+            random_dates.append(time_frame)
 
-    for idx, val in enumerate(dates):
-        start_at = str(val)
-        try:
-            end_at = str(dates[idx + 1])
-        except IndexError:
-            exit()
+    return random_dates
 
+
+def generate_data_by_dates(start_at, end_at, random=False):
+    if random:
+        time_frames = random_time_frame(start_at, end_at)
         with db.connect() as conn:
-            collect_data(start_at, end_at, conn, persist=True, comments=False, submissions=True)
+            for idx, val in enumerate(time_frames):
+                start_at = str(val[0])
+                end_at = str(val[1])
 
-        print(f'-------------------------------------------{start_at}----------------------------------------------->')
-        print(f'----------------------------------------------------------------------------------------------->')
+                collect_data(start_at, end_at, conn, persist=True, comments=False, submissions=True)
+
+                print(
+                    f'-------------------------------------------{start_at}----------------------------------------------->')
+                print(
+                    f'------`----------------------------------------------------------------------------------------->')
+    else:
+        dates = pd.date_range(start=start_at, end=end_at, freq='d')
+        with db.connect() as conn:
+            for i in range(1, len(dates)):
+                start = str(dates[i - 1])
+                end = str(dates[i])
+                collect_data(start, end, conn, persist=True, comments=False, submissions=True)
+
+                print(
+                    f'-------------------------------------------{start}----------------------------------------------->')
+                print(
+                    f'----------------------------------------------------------------------------------------------->')
+
+
+if __name__ == '__main__':
+    generate_data_by_dates(start_at='3/01/2021', end_at='4/01/2021', random=True)
 
 # def text_analysis(str):
 #     return adv.extract_emoji(str)['emoji_flat']
