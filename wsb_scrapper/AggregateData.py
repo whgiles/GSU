@@ -6,7 +6,6 @@ from SimpleCache import SimpleCache
 from pprint import pprint
 
 
-
 class CustomError(Exception):
     pass
 
@@ -91,10 +90,7 @@ class AggregateData:
                                 'tsla': ['tsla', 'tesla']}
         self.tickers = list(self.stock_key_words.keys())
 
-        if isinstance(dates, list):
-            self.dates = dates
-        else:
-            self.dates = [dates]
+        self.dates = [dates]
 
         if self.cache.fetch_cache() is not None:
             self.raw_copy_table = str(self.cache.fetch_cache())
@@ -236,7 +232,8 @@ class AggregateData:
                         'number_of_positive_sentiment']
                     running_summary[ticker]['number_of_negative_sentiment'] += observation_summary[ticker][
                         'number_of_negative_sentiment']
-                    running_summary[ticker]['number_of_submissions_in_day'] += observation_summary[ticker]['contains_keyword']
+                    running_summary[ticker]['number_of_submissions_in_day'] += observation_summary[ticker][
+                        'contains_keyword']
 
                 running_summary['meta']['sum_of_positive_sentiment'] += observation_summary['meta'][
                     'sum_of_positive_sentiment']
@@ -302,4 +299,3 @@ class AggregateData:
                         TSLA_number_of_negative_sentiment=daily_summary['tsla']['number_of_negative_sentiment']
 
                     ))
-
