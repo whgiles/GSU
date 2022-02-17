@@ -10,10 +10,20 @@ Below is the general architecture of the wsb-scrapper.
 The database is stored in a dockerized container. Make sure docker is running on port 5432 You can download docker at:
 > [Download Docker](https://www.docker.com/products/docker-desktop)
 
-Once Docker is downloaded you can clone the repo and run:
+Once Docker is downloaded clone the repo
 ```bash
 pip install -r ./wsb_crawler/requirements.txt
 ``` 
+Then run the following commands to get the docker container running
+```bash
+docker build -t wsb GSU/wsb_crawler/db/.
+docker run -dp 5432:5432 --name wsb_crawler -v wsb_volume:/var/lib/postgresql/data/
+```
+If you wish to access your database you can run the following:
+```bash
+docker exec -it wsb_crawler bash
+psql -U wsb
+```
 ## Usage
 ### WsbScrape
 You can use the 'random' argument to collect 9 out of 24 hours worth of data each day. This helps significantly with run time when there is a high volume of data. Also, it is best to use small intervals between 'start_date' and 'end_date'. 
