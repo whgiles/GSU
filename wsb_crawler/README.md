@@ -1,4 +1,4 @@
-# wsb_scrapper
+# wsb_crawler
 Please note that this is a WIP project. As of now it has basic functionality. 
 
 The wsb_scrapper is designed to collect r/wallstreetbets reddit data and yahoo finance data. The final table, 'Aggregate Table', holds information about GME, AMC, BB, and TSLA at the daily level. 
@@ -12,7 +12,7 @@ The database is stored in a dockerized container. Make sure docker is running on
 
 Once Docker is downloaded you can clone the repo and run:
 ```bash
-pip install -r ./wsb_scrapper/requirements.txt
+pip install -r ./wsb_crawler/requirements.txt
 ``` 
 ## Usage
 ### WsbScrape
