@@ -1,6 +1,7 @@
 advertools==0.12.3
+nltk==3.6.7
 numpy==1.22.1
 pandas==1.4.0
 pmaw==2.1.2
-requests==2.27.1
 SQLAlchemy==1.4.26
+yfinance==0.1.70
