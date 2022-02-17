@@ -3,7 +3,7 @@ import pandas as pd
 import yfinance as yf
 
 
-print(yf.download('gme', '2017-12-19', '2017-12-19').index)
+# print(yf.download(['gme','AMC'], '2017-12-19', '2017-12-30')['Close']['GME'])
 
 
 class CustomError(Exception):
@@ -92,26 +92,52 @@ class FinanceData:
     def collect_data(self):
         ticker_data = yf.download(self.tickers, self.start, self.end)
         self.financeData = ticker_data
+        print(self.financeData)
 
     def persist_data(self):
         with self.engine.connect() as conn:
             for index, row in self.financeData.iterrows():
-                conn.execute(
-                    self.aggregate_table.update().where(cast(self.aggregate_table.created, Date) == index).values(
-                        GME_open=self.financeData['gme']['open'],
-                        GME_close=self.financeData['gme']['close'],
-                        GME_volume=self.financeData['gme']['volume'],
+                print(index)
 
-                        AMC_open=self.financeData['amc']['open'],
-                        AMC_close=self.financeData['amc']['close'],
-                        AMC_volume=self.financeData['amc']['volume'],
+                exists = bool(conn.execute(f"SELECT COUNT(*) FROM aggregate_table WHERE day = '{index}'"))
+                if exists:
+                    conn.execute(
+                        self.aggregate_table.update().where(self.aggregate_table.c.day == index).values(
+                            GME_open=row['Open']['GME'],
+                            GME_close=row['Adj Close']['GME'],
+                            GME_volume=row['Volume']['GME'],
 
-                        BB_open=self.financeData['bb']['open'],
-                        BB_close=self.financeData['bb']['close'],
-                        BB_volume=self.financeData['bb']['volume'],
+                            AMC_open=row['Open']['AMC'],
+                            AMC_close=row['Adj Close']['AMC'],
+                            AMC_volume=row['Volume']['AMC'],
 
-                        TSLA_open=self.financeData['tsla']['open'],
-                        TSLA_close=self.financeData['tsla']['close'],
-                        TSLA_volume=self.financeData['tsla']['volume']
+                            BB_open=row['Open']['BB'],
+                            BB_close=row['Adj Close']['BB'],
+                            BB_volume=row['Volume']['BB'],
+
+                            TSLA_open=row['Open']['TSLA'],
+                            TSLA_close=row['Adj Close']['TSLA'],
+                            TSLA_volume=row['Volume']['TSLA']
+                        )
                     )
-                )
+                else:
+                    conn.execute(
+                        self.aggregate_table.insert().values(
+                            day=index,
+                            GME_open=row['Open']['GME'],
+                            GME_close=row['Adj Close']['GME'],
+                            GME_volume=row['Volume']['GME'],
+
+                            AMC_open=row['Open']['AMC'],
+                            AMC_close=row['Adj Close']['AMC'],
+                            AMC_volume=row['Volume']['AMC'],
+
+                            BB_open=row['Open']['BB'],
+                            BB_close=row['Adj Close']['BB'],
+                            BB_volume=row['Volume']['BB'],
+
+                            TSLA_open=row['Open']['TSLA'],
+                            TSLA_close=row['Adj Close']['TSLA'],
+                            TSLA_volume=row['Volume']['TSLA']
+                        )
+                    )
