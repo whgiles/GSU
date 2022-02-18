@@ -90,7 +90,10 @@ class AggregateData:
                                 'tsla': ['tsla', 'tesla']}
         self.tickers = list(self.stock_key_words.keys())
 
-        self.dates = [dates]
+        if isinstance(dates,list):
+            self.dates = dates
+        else:
+            self.dates = [dates]
 
         if self.cache.fetch_cache() is not None:
             self.raw_copy_table = str(self.cache.fetch_cache())
@@ -245,7 +248,7 @@ class AggregateData:
                     'number_of_negative_sentiment']
                 running_summary['meta']['rockets'] += observation_summary['meta']['rockets']
                 running_summary['meta']['number_of_submissions_in_day'] += 1
-            pprint(running_summary)
+
             return running_summary
 
     # persist aggregate data to database
@@ -256,7 +259,7 @@ class AggregateData:
         with self.engine.connect() as conn:
             for date in self.dates:
                 daily_summary = self._aggregate_data_for_single_date(date)
-                # pprint(daily_summary)
+
                 if not daily_summary:
                     continue
 
@@ -299,3 +302,5 @@ class AggregateData:
                         TSLA_number_of_negative_sentiment=daily_summary['tsla']['number_of_negative_sentiment']
 
                     ))
+                print(date)
+                pprint(daily_summary)

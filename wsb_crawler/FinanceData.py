@@ -3,9 +3,6 @@ import pandas as pd
 import yfinance as yf
 
 
-# print(yf.download(['gme','AMC'], '2017-12-19', '2017-12-30')['Close']['GME'])
-
-
 class CustomError(Exception):
     pass
 
