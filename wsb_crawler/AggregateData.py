@@ -200,8 +200,8 @@ class AggregateData:
         for ticker in self.tickers:
             running_summary[ticker] = {
                 'rockets': int(),
-                'sum_of_positive_sentiment': int(),
-                'sum_of_negative_sentiment': int(),
+                'sum_of_positive_sentiment': float(),
+                'sum_of_negative_sentiment': float(),
                 'number_of_positive_sentiment': int(),
                 'number_of_negative_sentiment': int(),
                 'number_of_submissions_in_day': int()
@@ -268,7 +268,7 @@ class AggregateData:
                         day=date,
                         number_of_submissions_in_day=daily_summary['meta']['number_of_submissions_in_day'],
                         sum_of_positive_sentiment=daily_summary['meta']['sum_of_positive_sentiment'],
-                        sum_of_negative_sentiment=daily_summary['meta']['number_of_negative_sentiment'],
+                        sum_of_negative_sentiment=daily_summary['meta']['sum_of_negative_sentiment'],
                         number_of_positive_sentiment=daily_summary['meta']['number_of_positive_sentiment'],
                         number_of_negative_sentiment=daily_summary['meta']['number_of_negative_sentiment'],
                         rockets=daily_summary['meta']['rockets'],
