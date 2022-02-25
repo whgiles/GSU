@@ -9,3 +9,5 @@
 /wsb_crawler/simplecache
 /wsb_crawler/out/
 /wsb_crawler/__pycache__/
+/wsb_crawler/out.csv
+/wsb_crawler/stockInfo/
