@@ -1,10 +1,10 @@
 ---
 title: "R Assignment 2"
-author: "Your Name"
+author: "W Hunter Giles"
 date: '2022-02-21'
 output:
   word_document: default
-  html_document: default
+  github_document: default
 ---
 
 ```{r setup, include=FALSE}

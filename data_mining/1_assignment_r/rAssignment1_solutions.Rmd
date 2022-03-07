@@ -1,8 +1,10 @@
 ---
-title: "my_solutions"
+title: "Assigmnent 1 Solutions"
 author: "Hunter GIles"
 date: "3/6/2022"
-output: word_document
+output: 
+  word_document: default
+  github_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -47,7 +49,7 @@ Installing the necessary dependencies for the remainder of the assignment.
 
 ```{r}
 # assigning readmill data to hunterData
-hunterData <- read_csv("gsu/data_mining/1_assignment_r/Data/treadmill.csv")
+hunterData <- read_csv("./Data/treadmill.csv")
 
 # viewing the first and and last 6 observations
 head(hunterData)

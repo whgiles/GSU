@@ -4,6 +4,10 @@ import numpy as np
 import advertools as adv
 from SimpleCache import SimpleCache
 from pprint import pprint
+import logging
+import datetime
+
+logging.basicConfig(filename='log.log', encoding='utf-8', level=logging.DEBUG)
 
 
 class CustomError(Exception):
@@ -90,7 +94,7 @@ class AggregateData:
                                 'tsla': ['tsla', 'tesla']}
         self.tickers = list(self.stock_key_words.keys())
 
-        if isinstance(dates,list):
+        if isinstance(dates, list):
             self.dates = dates
         else:
             self.dates = [dates]
@@ -193,7 +197,7 @@ class AggregateData:
 
     # Selects observations from the raw_table.copy, and returns its aggregated values
     def _aggregate_data_for_single_date(self, date):
-        print('calling _aggregate_data_for_single_date')
+        print(datetime.datetime.now(), ' calling _aggregate_data_for_single_date')
 
         # initializing dictionary to contain a running summer of daily sentiment and rocket emotes for
         running_summary = {}

@@ -3,8 +3,8 @@ title: "Library Workshop Exercise"
 author: "Your Name"
 date: "Type completion date"
 output:
+  github_document: default
   word_document: default
-  html_document: default
 ---
 ```{r setup, include=FALSE}
 # Do not delete or alter this chunk, always keep it in your R Markdown. 
