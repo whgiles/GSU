@@ -1,0 +1,120 @@
+---
+title: "R Assignment 2"
+author: "Type Your Name Here"
+date: "Type Completion Date Here"
+output:
+  word_document: default
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+1. Import the **USG*** data file into a data frame (table) and label it myData. Keep in mind that The R language is case sensitive. 
+
+```{r}
+# Type your code here. I already typed your first code here this time, but you need to replace the path in which the directory your file is saved in your future assignments. 
+# R will not run any code after the # sign. Text after # are meant to be comments you use to explain what the code is doing.
+
+myData <- read.csv("https://raw.githubusercontent.com/GSU-Robinson/Data/main/USG.csv")
+View(myData)
+```
+
+2.	Use the **dim** function in R to count the number of observations and variables. 
+
+```{r}
+dim(myData)
+```
+
+3. Two common functions to display a portion of data are **head** and **View**. The head function displays the first few observations in the data set, and the View function (case sensitive) displays a spreadsheet-style data viewer where the user can scroll through rows and columns. 
+
+```{r}
+head(myData)
+```
+
+```{r}
+View(myData)
+```
+
+4. R stores mission vales as NA, and we use the **is.na** function to identify the observations with missing values. R labels observations with missing values as “True” observations without missing values as “False.” In order to inspect the Industry variable for missing values, enter:
+
+```{r}
+is.na(myData$Industry)
+```
+
+5.	For a large data set, having to look through all observations is inconvenient. Alternately, we can use the **which** function together with the **is.na** function to identify “which” observations contain missing values. The following command identifies 10 observations by row number as having a missing vale in the Industry variable.
+
+```{r}
+which (is.na(myData$Industry))
+```
+
+6. To identify and count the number of employees with multiple selection criteria, we sue the **which** and **length** functions. In the following command, we identify which employees worked in the automotive industry with the **which** function and count the number of these employees using the **length** function. The double equal sign (==), also called equality operator, is used to check whether the industry is automotive. In R, text characters such as “Automotive’ are enclosed in quotation marks. Enter:
+
+```{r}
+length(which(myData$Industry=='Automotive'))
+```
+
+7. We can also use the >, >+=, <, <=, != (not equal to) operators in the selection criteria. For example, using the following command, w can determine the number of employees who earn more than $30 per hour. Enter
+
+```{r}
+length(which(myData$HourlyWage > 30))
+```
+
+8. To count how many employees worked in a particular industry and earned more than a particular wage, we use the **and** operator (&). The following command shows that 181 employees worked in the automotive industry and earned more than $30 per hour. Enter:
+
+```{r}
+length(which(myData$Industry=='Automotive' & myData$HourlyWage > 30))
+```
+
+9. We use the **order** function to sort the observations of a variable. In order to sort the Hourly Wage variable and store the order data set in a new data frame called sortedData1, enter:
+
+```{r}
+sortedData1 <- myData[order(myData$HourlyWage),]
+View(sortedData1)
+```
+
+10. The **View** function shows that the lowest and highest hourly wages are $24.28 and $51.00, respectively. By default, the sorting is performed in ascending order. To sort in descending order, enter:
+
+
+```{r}
+sortedData1 <- myData[order(myData$HourlyWage, decreasing = TRUE),]
+```
+
+11. To sort data by multiple variables, we specify the variables in the order function. The following command sorts the data by industry, job classification, and hourly wage, all in ascending order, and stores the ordered data in a data frame called sortedDta2. Enter:
+
+```{r}
+sortedData2 <- myData[order(myData$Industry, myData$Job, myData$HourlyWage),]
+View(sortedData2)
+```
+
+12. To sort the data by industry and job classification in ascending order and then by hourly wage in descending order, we insert a minus sign in front of the hourly wage variable. 
+```{r}
+sortedData3 <- myData[order(myData$Industry, myData$Job, -myData$HourlyWage),]
+View(sortedData3)
+```
+
+13.	The industry and job classification variables are non-numerical. As a result, to sort the data by industry in descending order and then by job classification and hourly wage in ascending order, we use the **xtfrm** function with the minus sign in front of the Industry variable. Enter:
+
+```{r}
+sortedData4 <- myData[order(-xtfrm(myData$Industry), myData$Job, myData$HourlyWage),]
+View(sortedData4)
+```
+
+14.	To sort the data by industry, job, and hourly wage, all in descending order, we use the decreasing option in the **order** function. 
+
+```{r}
+sortedData5 <- myData[order(myData$Industry, myData$Job, myData$HourlyWage, decreasing = TRUE),]
+View(sortedData5)
+```
+
+15.	To export the sorted data from step 14 as a comma-separated value file, we use the **write.csv** function. 
+
+```{r}
+write.csv(sortedData5,"sortedData5.csv")
+```
+ Summary report
+
+You may delete this paragraph and type your summary here. write a summary report including but not limited to a total number of records, # of employees in the automotive industry, the lowest and the highest hourly wages, the lowest- and the highest- paid accounts who worked in the automotive industry. Also, try to use different combinations of counting and sorting options than the ones above and add new findings to the report. 
+

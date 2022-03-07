@@ -1,0 +1,70 @@
+---
+title: "R Assignment 2"
+author: "Your Name"
+date: '2022-02-21'
+output:
+  word_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+1.  Import the **Demographics** data file (csv format) into a data frame (table) and label it myData. Keep in mind that The R language is case sensitive.
+
+```{r}
+# Replace Your with your name and " " with your file location. 
+
+myData <- read.csv("./data/Demographics.csv")
+
+# View(myData)
+```
+
+2.  Count the number of males and females in the data.
+
+```{r}
+length(which(myData$Sex=='M'))
+length(which(myData$Sex=='F'))
+
+```
+
+3.  What percentages of males and females are married?
+
+```{r}
+length(which(myData$Sex=='M' & myData$Married=='Y'))/length(which(myData$Sex=='M'))
+length(which(myData$Sex=='F' & myData$Married=='Y'))/length(which(myData$Sex=='F'))
+```
+
+4.  Of the 10 individuals with the highest income, how many are married males.
+
+```{r}
+df2 <- myData[order(-myData$Income),]
+df2 <- df2[1:10,]
+length(which(df2$Married=='Y' & df2$Sex=='M'))
+```
+
+5.  What are the highest and the lowest incomes of males and females?
+
+```{r, message=FALSE}
+library(dplyr)
+# lowest and highest income for males:
+min(filter(myData, myData$Sex=='M')$Income)
+max(filter(myData, myData$Sex=='M')$Income)
+
+# lowest and highest income for females
+min(filter(myData, myData$Sex=='F')$Income)
+max(filter(myData, myData$Sex=='F')$Income)
+```
+
+6.  What are the highest and lowest incomes of married and unmarried males?
+
+```{r}
+# "lowest and highest income for Unmarried males:"
+min(filter(myData, Sex=='M', Married=='N')$Income)
+max(filter(myData, Sex=='M', Married=='N')$Income)
+
+# lowest and highest income for married males:
+min(filter(myData, Sex=='M', Married=='Y')$Income)
+max(filter(myData, Sex=='M', Married=='Y')$Income)
+```

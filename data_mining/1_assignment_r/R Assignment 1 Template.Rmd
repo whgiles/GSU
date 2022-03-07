@@ -1,0 +1,26 @@
+---
+title: "R Assignment 1"
+author: "Type your name"
+date: 'Completion Date'
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+First, you will need to install the **readr** and **mosaic** packages. Go to (above menu) Tools -> Install Packages and type each package one (readr) by one (mosaic) and install them. Be sure you have the newest R and Rstudio installed on your computer. After installing them, you can load the packages here.
+
+```{r}
+library(readr)
+library(mosaic)
+```
+
+Import the **treadmill** data file into a data frame (table) and label it yournameData (FrankData). Keep in mind that The R language is case sensitive. What is put inside the " " will depend on the location and name of your saved .csv file.
+
+```{r}
+FrankData <- read.csv("https://raw.githubusercontent.com/GSU-Robinson/Data/main/treadmill.csv")
+
+```
+
+Complete the rest of the notebook tasks by inserting a chunk and type the code.

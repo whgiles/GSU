@@ -1,0 +1,83 @@
+---
+title: "Library Workshop Exercise"
+author: "Your Name"
+date: "Type completion date"
+output:
+  word_document: default
+  html_document: default
+---
+```{r setup, include=FALSE}
+# Do not delete or alter this chunk, always keep it in your R Markdown. 
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+**Go to https://research.library.gsu.edu/c.php?g=972058&p=7685877 and complete the exercise by creating chunks and typing the codes. After completing the exercise, you need to submit an RMD file and a knitted WORD file. I already typed the first two codes as well as the last, but you need to run them. ** 
+
+```{r loading and opening data}
+# Run this code to load and open the data
+SLID <- read.csv("https://raw.githubusercontent.com/GSU-Robinson/Data/main/SLID.csv")
+```
+
+```{r viewing the data using the name}
+head(SLID)
+```
+### Frequency Tables:
+Below is the code for the frequency distribution for the variable language in the SLID dataset. 
+```{r}
+table(SLID$language)
+```
+
+### Descriptive Statistics
+Below is the code for calculating the descriptive statistics of the variable wages.
+```{r}
+summary(SLID$wages)
+```
+
+We can also calculate the descriptive statistics for all the variables in one command line.
+```{r}
+summary(SLID)
+```
+
+### Cross Tabulation
+Below is the code for conducting a crosstabulation and calculating the Chi-squared test.    
+```{r}
+table(SLID$sex, SLID$language)
+
+chisq.test(table(SLID$sex, SLID$language))
+```
+
+### Generating Variables
+Below is the code for generating the variable age1 from an already existing variable age. 
+```{r}
+SLID$age1<-SLID$age
+```
+
+### Correlations
+Below is the code for calculating the sample Pearson coefficient. 
+```{r}
+cor(SLID[,c("wages", "age")], use="complete.obs")
+
+cor.test(SLID$wages, SLID$age, method = "pearson")
+```
+
+### Linear Regression
+Below is the RStudio code for our linear regression. 
+```{r}
+summary(lm(wages~age + sex + education + language, data= SLID))
+```
+
+### Basic Graphing
+A pie chart is best for showing the proportions of occurrence of the options in a nominal level variable. 
+```{r}
+pie(table(SLID$language))
+```
+
+```{r, message=FALSE, results=FALSE}
+# This is your last chunk
+library(car)
+scatterplot(wages~education, regLine=FALSE, smooth=FALSE, boxplots=FALSE, data=SLID)
+```
+
+
+
+
