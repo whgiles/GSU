@@ -1,0 +1,14 @@
+---
+title: "Assignment 3"
+author: "Hunter GIles"
+date: "3/9/2022"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+
+```
