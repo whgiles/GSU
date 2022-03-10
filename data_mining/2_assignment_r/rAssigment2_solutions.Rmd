@@ -21,7 +21,7 @@ myData <- read.csv("./data/Demographics.csv")
 # View(myData)
 ```
 
-2.  Count the number of males and females in the data.
+1.  Count the number of males and females in the data.
 
 ```{r}
 length(which(myData$Sex=='M'))
@@ -29,14 +29,14 @@ length(which(myData$Sex=='F'))
 
 ```
 
-3.  What percentages of males and females are married?
+1.  What percentages of males and females are married?
 
 ```{r}
 length(which(myData$Sex=='M' & myData$Married=='Y'))/length(which(myData$Sex=='M'))
 length(which(myData$Sex=='F' & myData$Married=='Y'))/length(which(myData$Sex=='F'))
 ```
 
-4.  Of the 10 individuals with the highest income, how many are married males.
+1.  Of the 10 individuals with the highest income, how many are married males.
 
 ```{r}
 df2 <- myData[order(-myData$Income),]
@@ -44,7 +44,7 @@ df2 <- df2[1:10,]
 length(which(df2$Married=='Y' & df2$Sex=='M'))
 ```
 
-5.  What are the highest and the lowest incomes of males and females?
+1.  What are the highest and the lowest incomes of males and females?
 
 ```{r, message=FALSE}
 library(dplyr)
@@ -57,7 +57,7 @@ min(filter(myData, myData$Sex=='F')$Income)
 max(filter(myData, myData$Sex=='F')$Income)
 ```
 
-6.  What are the highest and lowest incomes of married and unmarried males?
+1.  What are the highest and lowest incomes of married and unmarried males?
 
 ```{r}
 # "lowest and highest income for Unmarried males:"
