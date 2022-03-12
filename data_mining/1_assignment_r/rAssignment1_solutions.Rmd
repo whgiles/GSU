@@ -67,8 +67,8 @@ mean(hunterData$RunTime)
 sd(hunterData$RunTime)
 ```
 
-The chunk above displays the mean and standard deviation of the *RunTime* column. The \$ is a characteristic of a tibble. From this we can receive a specific column (vector) of a tibble by calling \
-\[data-frame\]\$\[column\].
+The chunk above displays the mean and standard deviation of the *RunTime* column. The $ is a characteristic of a tibble. From this we can receive a specific column (vector) of a tibble by calling
+[data-frame]$[column].
 
 ### Question 6
 
