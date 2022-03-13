@@ -4,6 +4,7 @@ import numpy as np
 import advertools as adv
 from SimpleCache import SimpleCache
 from pprint import pprint
+from entities.DTOs import SubmissionMetaSummary, SubmissionTickerSummary, FullSubmissionSummary
 
 
 class CustomError(Exception):
@@ -146,50 +147,18 @@ class AggregateData:
                 raise e
 
     # sorts observation by ticker(s), then summarizes the sentiment and the amount of rocket emotes
-    def _summarize_single_observation(self, obs):
-        # initializing the summary table
-        observation_summary = {}
-        for ticker in self.tickers:
-            observation_summary[ticker] = {
-                'contains_keyword': int(),
-                'rockets': int(),
-                'sum_of_positive_sentiment': float(),
-                'sum_of_negative_sentiment': float(),
-                'number_of_positive_sentiment': int(),
-                'number_of_negative_sentiment': int()
-            }
-        # meta carries information about the observations regardless of ticker
-        observation_summary['meta'] = {
-            'rockets': int(),
-            'sum_of_positive_sentiment': float(),
-            'sum_of_negative_sentiment': float(),
-            'number_of_positive_sentiment': int(),
-            'number_of_negative_sentiment': int()
-        }
+    def _summarize_single_observation(self, sub):
 
-        sentiment = self.vader_analysis(obs.title)
-        rockets = self.rocket_count(obs.title)
+        sentiment = self.vader_analysis(sub.title)
+        rockets = self.rocket_count(sub.title)
 
         for ticker in self.tickers:
-            lower_case_title = obs.title.lower()
+            lower_case_title = sub.title.lower()
             if any(x in lower_case_title for x in self.stock_key_words[ticker]):
-                if sentiment > 0:
-                    observation_summary[ticker]['sum_of_positive_sentiment'] = sentiment
-                    observation_summary[ticker]['number_of_positive_sentiment'] = 1
-                elif sentiment < 0:
-                    observation_summary[ticker]['sum_of_negative_sentiment'] = sentiment
-                    observation_summary[ticker]['number_of_negative_sentiment'] = 1
-                observation_summary[ticker]['rockets'] = rockets
-                observation_summary[ticker]['contains_keyword'] = 1
-        if sentiment > 0:
-            observation_summary['meta']['sum_of_positive_sentiment'] = sentiment
-            observation_summary['meta']['number_of_positive_sentiment'] = 1
-        elif sentiment < 0:
-            observation_summary['meta']['sum_of_negative_sentiment'] = sentiment
-            observation_summary['meta']['number_of_negative_sentiment'] = 1
-        observation_summary['meta']['rockets'] = rockets
+                SubmissionTickerSummary(ticker, rockets, sentiment).add_to_full_summary()
 
-        return observation_summary
+        SubmissionMetaSummary(rockets, sentiment).add_to_full_summary()
+
 
     # Selects observations from the raw_table.copy, and returns its aggregated values
     def _aggregate_data_for_single_date(self, date):
