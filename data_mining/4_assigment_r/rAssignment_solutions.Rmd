@@ -1,0 +1,50 @@
+---
+title: "Assignment 4 solution"
+author: "Hunter GIles"
+date: "3/21/2022"
+output: 
+  github_document: default
+  word_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### setup
+```{r, message=F, results=F}
+library(readxl)
+library(jtools)
+# using the "readxl" package to load the .xlsx data file
+data <- read_excel("./TV.xlsx")
+#View(data)
+```
+
+### Question 1
+A. Estimate a quadratic regression model where the GPA of middle school children is regressed on hours and hours-squared.
+```{r, message=F}
+ols1 <- lm(GPA~Hours+I(Hours^2), data=data)
+summary(ols1)
+```
+
+### Question 3
+B. Find the optimal number of weekly hours of TV for middle school children.
+
+```{r, message=F}
+# retrieving the coefs from the last ols to use as numerics
+beta1 <- coef(ols1)[2]
+beta2 <- coef(ols1)[3]
+
+# Formula to maximize GPA
+max_hours <- beta1/(beta2*2) * -1
+max_hours
+```
+
+
+
+
+
+
+
+
+
