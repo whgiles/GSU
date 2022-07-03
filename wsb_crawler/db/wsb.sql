@@ -5,7 +5,8 @@ CREATE TABLE wsb_submissions
     title TEXT,
     created TIMESTAMP,
     author TEXT,
-    tickers_mentioned TEXT,
+    body TEXT,
+    tickers_mentioned TEXT ARRAY,
     subreddit TEXT,
     emotes TEXT ARRAY
 );
