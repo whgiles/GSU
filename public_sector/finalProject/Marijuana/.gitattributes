@@ -1,0 +1,2 @@
+first_do_file_example_for_marijuana.do filter=lfs diff=lfs merge=lfs -text
+data filter=lfs diff=lfs merge=lfs -text
